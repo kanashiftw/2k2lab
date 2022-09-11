@@ -21,6 +21,7 @@ public:
             y = ty;
         }
     }
+    ~Fraction() {}//Деструктор
     //МЕТОД ДЛЯ ВЫВОДА ДРОБИ
     void PrintAsFraction(Fraction xaxa)
     {
@@ -105,4 +106,7 @@ public:
         std::cout << "Разность дробей: ";
         z.PrintAsFraction(z - l);
         std::cout<< "Количество объектов типа Fraction: "<<count;
+        z.~Fraction();
+        l.~Fraction();
     }
+
