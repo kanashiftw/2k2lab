@@ -3,117 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-
-//Окей, мы просто играем в жизнь
-//Часто не понимая роль
-//Наши сюжеты — это белый лист
-//Где мы вместе напишем свой
-class Shop
-{
-private:
-    std::string title;//Название магазина
-    std::string address;//Адрес магазина
-    int year;//Год основания
-    int number;//Номер телефона
-    int networth;//Суммарная прибыль
-public:
-    //КОНСТРУКТОР
-    Shop(std::string _title = "Название не указано",
-        std::string _address = "Адрес не указан",
-        int _year = 000, 
-        int _number = 000, 
-        int _networth = 000) {
-        title = _title;
-        address = _address;
-        year = _year;
-        number = _number;
-        networth = _networth;
-    }
-    //СЕТТЕР
-    void setter() {
-
-            std::cout << "Введите название: " << std::endl;
-            std::string tmpx;
-            std::cin >> tmpx;
-            title = tmpx;
-
-            std::cout << "Введите адрес: " << std::endl;
-            std::string tmpk;
-            std::cin >> tmpk;
-            title = tmpk; 
-
-            std::cout << "Введите год: " << std::endl;
-            int tmpy;
-            std::cin >> tmpy;
-            year = tmpy;
- 
-            std::cout << "Введите номер: " << std::endl;
-            int tmpz;
-            std::cin >> tmpz;
-            number = tmpz;
-     
-            std::cout << "Введите заработок: " << std::endl;
-            int tmpv;
-            std::cin >> tmpv;
-            networth = tmpv;
-        
-    }
-    
-    //МЕТОД ДЛЯ ОТОБРАЖЕНИЯ МАГАЗИНА
-    void displayShop() {
-        std::cout << title << "\n"
-            <<"Адрес: "<<address<<"\n"
-            << year << " года основания\n" 
-            << "Номер телефона: " << number << "\n"
-            << "Суммарная прибыль: " << networth<<" руб."<<"\n"<<std::endl;
-    }
-    //ЗАПИСЬ ОБЪЕКТА В ФАЙЛ
-    void seriallize(const std::string filename) {
-        std::ofstream fout;
-        fout.open(filename);
-            fout <<title<<"\n"<< year << "\n"<<number <<"\n"<< networth;
-            fout.close();
-    }
-    //ЧТЕНИЕ ОБЪЕКТА ИЗ ФАЙЛА
-    void deseriallize(const std::string filename) {
-        std::ifstream fin;
-        fin.open(filename);
-        fin >> title >> year >> number >> networth;
-        fin.close();
-    }
-};
-int main()
-{
-    setlocale(LC_ALL, "Russian");
-    std::vector<Shop> shop;
-    std::cout << "Пример элемента класса Shop: ";
-    Shop example("Пятерочка","Арбат  24", 1998, 88005555505, 178000000000);
-    shop.push_back(example);
-    example.displayShop();
-    example.seriallize("file.txt");
-    Shop first;
-    first.setter();
-    shop.push_back(first);
-    std::cout << "Вы ввели: "<<std::endl;
-    first.displayShop();
-    Shop second;
-    second.setter();
-    shop.push_back(second);
-    std::cout << "Вы ввели: " << std::endl;
-    second.displayShop();
-}
-
-
-
-
-
-
-#include <vector>
-#include <iomanip>
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include <regex>
+#include <Windows.h>
 //Окей, мы просто играем в жизнь
 //Часто не понимая роль
 //Наши сюжеты — это белый лист
@@ -141,39 +31,30 @@ public:
         number = _number;
         networth = _networth;
     }
+    ~Shop(){} //Деструктор
     //СЕТТЕР
     void setter() {
+        std::cin.clear();
 
-            std::cout << "Введите название: " << std::endl;
-            std::string tmpx;
-            std::cin >> tmpx;
-            title = tmpx;
-            std::cin.clear();
+        std::cout << "Введите название: " << std::endl;
+        std::getline(std::cin, title);
 
-            std::cout << "Введите адрес: " << std::endl;
-            std::string tmpk;
-            std::cin >> tmpk;
-            title = tmpk; 
-            std::cin.clear();
+        std::cout << "Введите адрес: " << std::endl;
+        std::getline(std::cin, address);
 
-            std::cout << "Введите год: " << std::endl;
-            int tmpy;
-            tmpy = std::cin.get();
-            year = tmpy;
-            std::cin.clear();
+        std::cout << "Введите год: " << std::endl;
+        std::cin >> year;
 
-            std::cout << "Введите номер: " << std::endl;
-            int tmpz;
-            tmpz = std::cin.get();
-            number = tmpz;
-            std::cin.clear();
 
-            std::cout << "Введите заработок: " << std::endl;
-            int tmpv;
-            tmpv = std::cin.get();
-            networth = tmpv;
-        
+        std::cout << "Введите номер: " << std::endl;
+        std::cin >> number;
+
+        std::cout << "Введите заработок: " << std::endl;
+        std::cin >> networth;
+
     }
+
+
     
     //МЕТОД ДЛЯ ОТОБРАЖЕНИЯ МАГАЗИНА
     void displayShop() {
@@ -214,6 +95,7 @@ public:
             array[i] = _array[i];
         }
     }
+    ~Income(){}//Деструктор
     //Расчет общей прибыли
     int allIncome() {
         for (int i = 1; i < 3; i++) {
@@ -295,21 +177,27 @@ public:
 };
 int main()
 {
-    setlocale(LC_ALL, "Russian");
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
     std::vector<Shop> shop;
-    std::cout << "Пример элемента класса Shop: " << std::endl;
+    std::cout << "Пример элемента класса Shop: ";
     Shop example("Пятерочка", "Арбат  24", 1998, 88005555505, 178000000000);
     shop.push_back(example);
     example.displayShop();
     example.seriallize("file.txt");
     Shop first;
-    std::cin.clear();
-    first.setter(first);
-    std::cout<< "Вы ввели: "<< std::endl;
+    first.setter();
+    shop.push_back(first);
+    first.seriallize("file.txt");
+    std::cout << "\nВы ввели: " << std::endl;
     first.displayShop();
+    std::cout << "\n";
     Shop second;
-    second.setter(second);
-    std::cout <<"Вы ввели: " <<std::endl;
+    second.setter();
+    shop.push_back(second);
+    second.seriallize("file.txt");
+    second.deseriallize("file.txt");
+    std::cout << "\nВы ввели: " << std::endl;
     second.displayShop();
     int mounth1[3] = {23000, 25000, 26005};
     int mounth2[3] = { 92000, 108000, 97000 };
@@ -319,4 +207,10 @@ int main()
     Income c(second, mounth3);
     a.sortbyMid(a, b, c);
     a.sortbyAll(a, b, c);
+    example.~Shop();
+    first.~Shop();
+    second.~Shop();
+    a.~Income();
+    b.~Income();
+    c.~Income();
 }
