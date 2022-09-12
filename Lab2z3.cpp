@@ -34,9 +34,15 @@ public:
     ~Shop(){} //Деструктор
     //СЕТТЕР
     void setter() {
-        std::cin.clear();
-
         std::cout << "Введите название: " << std::endl;
+        if (char(std::cin.peek()) == '\n')//Очистка буффера ввода
+            std::cin.ignore();
+
+        if (std::cin.fail())
+        {
+            std::cin.clear();
+            std::cin.ignore(32767, '\n');
+        }
         std::getline(std::cin, title);
 
         std::cout << "Введите адрес: " << std::endl;
@@ -214,3 +220,4 @@ int main()
     b.~Income();
     c.~Income();
 }
+
